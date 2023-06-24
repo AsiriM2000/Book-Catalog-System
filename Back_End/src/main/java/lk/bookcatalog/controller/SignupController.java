@@ -23,4 +23,10 @@ public class SignupController {
         service.signUp(signupDTO);
         return new ResponseUtil("200","Success",null);
     }
+
+    @GetMapping(params = {"email","password"})
+    public ResponseUtil getSignup(String email,String password){
+        SignupDTO signupDTO = service.searchEmailAndPassword(email, password);
+        return new ResponseUtil("200","Success",signupDTO);
+    }
 }

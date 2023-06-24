@@ -28,4 +28,9 @@ public class SignupServiceImpl implements SignupService {
     public void signUp(SignupDTO signupDTO) {
         repo.save(mapper.map(signupDTO,Signup.class));
     }
+
+    @Override
+    public SignupDTO searchEmailAndPassword(String email, String password) {
+        return mapper.map(repo.findByEmailAndPassword(email,password), SignupDTO.class);
+    }
 }

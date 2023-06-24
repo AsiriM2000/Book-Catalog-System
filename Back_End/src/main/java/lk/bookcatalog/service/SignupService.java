@@ -8,4 +8,5 @@ import lk.bookcatalog.dto.SignupDTO;
  **/
 public interface SignupService {
     public void signUp(SignupDTO signupDTO);
+    SignupDTO searchEmailAndPassword(String email, String password);
 }

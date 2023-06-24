@@ -47,10 +47,10 @@
           <p>Happy to have you back.</p>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email address" name="email"><br>
+          <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email address" name="email" id="email"><br>
         </div>
         <div class="input-group mb-1">
-          <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password">
+          <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password" id="password">
         </div>
 
         <div class="input-group mb-3">
@@ -68,7 +68,33 @@
   </div>
 </div>
 
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
+<script src="./assets/js/jquery-3.6.1.min.js"></script>
+<script>
+  let baseUrl = "http://localhost:8081/book/api/v1/";
+
+  $("#login").click(function (){
+    let email = $("#email").val();
+    let password = $("#password").val();
+
+    $.ajax({
+      url: baseUrl + "signup?email=" + email + "&password=" + password,
+      dataType: "json",
+      success: function (res) {
+        location.href='./pages/home.html';
+        clear();
+      },
+      error: function () {
+        alert("Username Or Password Incorrect")
+        clear();
+      }
+    });
+  });
+
+  function clear(){
+    $("#email").val("");
+    $("#password").val("");
+  }
+</script>
 </body>
 </html>

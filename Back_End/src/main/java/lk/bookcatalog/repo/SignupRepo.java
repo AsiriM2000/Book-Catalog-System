@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since : 0.1.0
  **/
 public interface SignupRepo extends JpaRepository<Signup, String> {
+    Signup findByEmailAndPassword(String email,String password);
 }
