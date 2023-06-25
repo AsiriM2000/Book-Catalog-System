@@ -14,6 +14,6 @@ public interface BookRepo extends JpaRepository<Book,String> {
     @Query(value = "SELECT id FROM Book ORDER BY id DESC LIMIT 1", nativeQuery = true)
     String generateBookId();
 
-    @Query(value = "select * from Book where id=?",nativeQuery = true)
-    List<Book> searchBookId(String id);
+    @Query(value = "select * from Book where author=?",nativeQuery = true)
+    List<Book> searchBookAuthor(String author);
 }

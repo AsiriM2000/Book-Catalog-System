@@ -25,6 +25,9 @@
         #content2 {
             display: none;
         }
+        #marq{
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -51,18 +54,12 @@
         <div class="top-navbar">
             <div class="xd-topbar">
                 <div class="row">
-                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
-                        <img src="../assets/img/book.png" style="width: 50px">
-
+                    <div class="col-md-5 col-lg-12 order-3 order-md-2">
+                        <marquee direction="left" id="marq"><img src="../assets/img/book.png" style="width: 50px">Welcome To Book Catalog System<img src="../assets/img/book.png" style="width: 50px"></marquee>
                     </div>
                 </div>
             </div>
         </div>
-        <!------top-navbar-end----------->
-
-
-        <!------main-content-start----------->
-
         <div class="main-content">
             <div class="row">
                 <div class="col-md-12">
@@ -81,28 +78,28 @@
                                 <div class="row">
                                     <div class="col">
                                         <input class="form-control" id="id" name="id" placeholder="Book Id" readonly
-                                               type="text">
+                                               type="text" required>
                                     </div>
                                     <div class="col">
                                         <input class="form-control" id="name" name="name" placeholder="Book Name"
-                                               type="text">
+                                               type="text" required>
                                     </div>
 
                                 </div>
                                 <div class="row" style="margin-top: 10px">
                                     <div class="col">
                                         <input class="form-control" id="category" name="category" placeholder="Category"
-                                               type="text">
+                                               type="text" required>
                                     </div>
                                     <div class="col">
                                         <input class="form-control" id="price" name="price" placeholder="Price"
-                                               type="text">
+                                               type="text" required>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top: 10px">
                                     <div class="col">
                                         <input class="form-control" id="author" name="author" placeholder="Author"
-                                               type="text">
+                                               type="text" required>
                                     </div>
                                     <div class="col">
                                         <input class="form-control" id="qty" name="qty" placeholder="Qty" type="text">
@@ -138,7 +135,6 @@
                 </div>
             </div>
         </div>
-
         <footer class="footer">
             <div class="container-fluid">
                 <div class="footer-in">
@@ -155,7 +151,7 @@
                         <div class="xp-searchbar">
                             <form>
                                 <div class="input-group">
-                                    <input class="form-control" id="searchId" placeholder="Enter Book Id (eg:B00-001)"
+                                    <input class="form-control" id="searchAuthor" placeholder="Enter Author Name"
                                            type="text">
                                     <button class="btn btn-primary" id="searBook" type="button">Search Book</button>
                                 </div>
@@ -165,11 +161,6 @@
                 </div>
             </div>
         </div>
-        <!------top-navbar-end----------->
-
-
-        <!------main-content-start----------->
-
         <div class="main-content">
             <div class="row">
                 <div class="col-md-12">
@@ -352,21 +343,20 @@
     });
 
     $("#searBook").click(function () {
-        let bookId = $("#searchId").val();
+        let author = $("#searchAuthor").val();
         $("#tblBook2").empty();
         $.ajax({
-            url: baseUrl + "book?id=" + bookId,
+            url: baseUrl + "book?author=" + author,
             dataType: "json",
             success: function (resp) {
-                for (let book of resp.data) {
-                    var row = '<tr style="cursor: pointer"><td>' + book.id + '</td><td>' + book.name + '</td><td>' + book.category + '</td><td>' + book.author + '</td><td>' + book.price + '</td><td style="font-size: 16px">' + book.qty + '</td></tr>';
-                    $("#tblBook2").append(row);
-
+                if (resp.data === ""){
+                    alert("Please Enter Correct Author Name");
+                }else {
+                    for (let book of resp.data) {
+                        var row = '<tr style="cursor: pointer"><td>' + book.id + '</td><td>' + book.name + '</td><td>' + book.category + '</td><td>' + book.author + '</td><td>' + book.price + '</td><td style="font-size: 16px">' + book.qty + '</td></tr>';
+                        $("#tblBook2").append(row);
+                    }
                 }
-            },
-            error: function () {
-                alert("Please Enter Correct Book ID")
-                clear2();
             }
         });
     });

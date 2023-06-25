@@ -38,9 +38,9 @@ public class BookController {
         return new ResponseUtil("200","Success",id);
     }
 
-    @GetMapping(params = "id")
-    public ResponseUtil searchBookId(String id){
-        ArrayList<BookDTO> bookDTOS = service.searchBookId(id);
+    @GetMapping(params = "author")
+    public ResponseUtil searchBookAuthor(String author){
+        ArrayList<BookDTO> bookDTOS = service.searchBookAuthor(author);
         return new ResponseUtil("200","Success",bookDTOS);
     }
 
