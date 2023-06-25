@@ -43,6 +43,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void updateBook(BookDTO bookDTO) {
+        if (!repo.existsById(bookDTO.getId())) {
+            throw new RuntimeException("Book "+bookDTO.getId()+" Not Available To Update...!");
+        }
+        repo.save(mapper.map(bookDTO,Book.class));
+    }
+
+    @Override
     public ArrayList<BookDTO> getAllBook() {
         return mapper.map(repo.findAll(), new TypeToken<ArrayList<BookDTO>>(){}.getType());
     }

@@ -38,6 +38,12 @@ public class BookController {
         return new ResponseUtil("200","Success",id);
     }
 
+    @PutMapping
+    public  ResponseUtil updateBook(@RequestBody BookDTO bookDTO){
+        service.updateBook(bookDTO);
+        return new ResponseUtil("200","Update Success",null);
+    }
+
     @DeleteMapping()
     public ResponseUtil deleteBook(String id){
         service.deleteBook(id);

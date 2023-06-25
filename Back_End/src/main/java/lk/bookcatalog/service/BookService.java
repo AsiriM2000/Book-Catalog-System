@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface BookService {
     public void saveBook(BookDTO bookDTO);
     public void deleteBook(String id);
+    public void updateBook(BookDTO bookDTO);
     ArrayList<BookDTO> getAllBook();
     String generateBookId();
 }

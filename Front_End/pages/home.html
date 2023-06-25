@@ -217,6 +217,41 @@
         })
     });
 
+    $("#updateBook").click(function (){
+        let id = $("#id").val();
+        let name = $("#name").val();
+        let category = $("#category").val();
+        let price = $("#price").val();
+        let author = $("#author").val();
+        let qty = $("#qty").val();
+
+        let data ={
+            id:id,
+            name:name,
+            category:category,
+            price:price,
+            author:author,
+            qty:qty
+        }
+
+        $.ajax({
+            url: baseUrl+"book",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "json",
+            success:function (res){
+                alert(res.message);
+                loadAll();
+                clear();
+            },
+            error: function (error){
+                alert(JSON.parse(error.responseText).message);
+                clear();
+            }
+        })
+    });
+
     $("#deleteBook").click(function (){
         let id = $("#id").val();
         $.ajax({
