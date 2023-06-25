@@ -105,9 +105,9 @@
 							</form>
 							<div style="margin-top: 10px">
 								<button type="button" class="btn btn-primary" id="addBook">Add Book</button>
-								<button type="button" class="btn btn-danger">Delete Book</button>
-								<button type="button" class="btn btn-warning">Update Book</button>
-                                <button type="button" class="btn btn-success">Get All Book</button>
+								<button type="button" class="btn btn-danger" id="deleteBook">Delete Book</button>
+								<button type="button" class="btn btn-warning" id="updateBook">Update Book</button>
+                                <button type="button" class="btn btn-success" id="getBook">Get All Book</button>
 							</div>
 						</div>
 
@@ -178,6 +178,10 @@
         });
     }
 
+    $("#getBook").click(function (){
+        loadAll();
+    });
+
     $("#addBook").click(function (){
         let id = $("#id").val();
         let name = $("#name").val();
@@ -213,6 +217,23 @@
         })
     });
 
+    $("#deleteBook").click(function (){
+        let id = $("#id").val();
+        $.ajax({
+            url: baseUrl + "book?id=" + id,
+            method: "delete",
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAll();
+                clear();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
     function clear(){
         $("#name").val("");
         $("#category").val("");
@@ -220,7 +241,6 @@
         $("#author").val("");
         $("#qty").val("");
     }
-
     function bindRowClickEvents() {
         $("#tblBook>tr").click(function () {
             let id = $(this).children(":eq(0)").text();

@@ -35,6 +35,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void deleteBook(String id) {
+        if (!repo.existsById(id)){
+            throw new RuntimeException("Book "+id+" Not Available to Delete...!");
+        }
+        repo.deleteById(id);
+    }
+
+    @Override
     public ArrayList<BookDTO> getAllBook() {
         return mapper.map(repo.findAll(), new TypeToken<ArrayList<BookDTO>>(){}.getType());
     }

@@ -37,4 +37,10 @@ public class BookController {
         String id = service.generateBookId();
         return new ResponseUtil("200","Success",id);
     }
+
+    @DeleteMapping()
+    public ResponseUtil deleteBook(String id){
+        service.deleteBook(id);
+        return new ResponseUtil("200",id+" Delete Successful",null);
+    }
 }
