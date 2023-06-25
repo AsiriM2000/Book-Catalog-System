@@ -13,5 +13,6 @@ public interface BookService {
     public void deleteBook(String id);
     public void updateBook(BookDTO bookDTO);
     ArrayList<BookDTO> getAllBook();
+    ArrayList<BookDTO> searchBookId(String id);
     String generateBookId();
 }

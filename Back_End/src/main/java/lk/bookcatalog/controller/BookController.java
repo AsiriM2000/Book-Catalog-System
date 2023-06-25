@@ -38,6 +38,12 @@ public class BookController {
         return new ResponseUtil("200","Success",id);
     }
 
+    @GetMapping(params = "id")
+    public ResponseUtil searchBookId(String id){
+        ArrayList<BookDTO> bookDTOS = service.searchBookId(id);
+        return new ResponseUtil("200","Success",bookDTOS);
+    }
+
     @PutMapping
     public  ResponseUtil updateBook(@RequestBody BookDTO bookDTO){
         service.updateBook(bookDTO);

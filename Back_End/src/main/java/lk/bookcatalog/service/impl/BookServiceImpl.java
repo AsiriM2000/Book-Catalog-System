@@ -56,6 +56,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public ArrayList<BookDTO> searchBookId(String id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Not Available This Book...!");
+        }
+        return mapper.map(repo.searchBookId(id), new TypeToken<ArrayList<BookDTO>>(){}.getType());
+    }
+
+    @Override
     public String generateBookId() {
         long count = repo.count();
         String id = "B00-001";

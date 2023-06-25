@@ -127,7 +127,7 @@ overflow:auto;
 		  bottom:0!important;
 	  }
 
-	  #content{
+	  #content, #content2{
 		  width:calc(100% - 260px);
 		  position:relative;
 		  float:right;
@@ -135,6 +135,9 @@ overflow:auto;
 	  }
 
 	  #content.active{
+		  width:100%;
+	  }
+	  #content2.active{
 		  width:100%;
 	  }
 

@@ -10,7 +10,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <!----css3---->
     <link href="../assets/css/home.css" rel="stylesheet">
-	<link rel="icon" type="image/png" href="../assets/img/book.png">
+    <link href="../assets/img/book.png" rel="icon" type="image/png">
 
     <!--google fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -21,6 +21,11 @@
     <!--google material icon-->
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
+    <style>
+        #content2 {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -31,8 +36,14 @@
             <h3><img class="img-fluid" src="../assets/img/book.png"/><span>Book Catalog</span></h3>
         </div>
         <ul class="list-unstyled component m-0">
-            <li class="active">
+            <li class="active" id="dashboard">
                 <a class="dashboard" href="#"><i class="material-icons">dashboard</i>dashboard </a>
+            </li>
+            <li class="active" id="search">
+                <a class="dashboard" href="#"><i class="material-icons">search</i>search </a>
+            </li>
+            <li class="active" id="logout">
+                <a class="dashboard" href="../index.html" target="_self" style="color: rgb(237, 95, 30)"><i class="material-icons" style="color: rgb(237, 95, 30)">logout</i>logout </a>
             </li>
         </ul>
     </div>
@@ -41,18 +52,8 @@
             <div class="xd-topbar">
                 <div class="row">
                     <div class="col-md-5 col-lg-3 order-3 order-md-2">
-                        <div class="xp-searchbar">
-                            <form>
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="Search"
-                                           type="search">
-                                    <div class="input-group-append">
-                                        <button class="btn" id="button-addon2" type="submit">Go
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <img src="../assets/img/book.png" style="width: 50px">
+
                     </div>
                 </div>
             </div>
@@ -63,7 +64,7 @@
         <!------main-content-start----------->
 
         <div class="main-content">
-			<div class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="table-wrapper">
 
@@ -75,41 +76,46 @@
                             </div>
                         </div>
 
-						<div style="margin-top: 10px">
-							<form>
-								<div class="row">
-									<div class="col">
-										<input type="text" class="form-control" placeholder="Book Id" name="id" id="id" readonly>
-									</div>
-									<div class="col">
-										<input type="text" class="form-control" placeholder="Book Name" name="name" id="name">
-									</div>
+                        <div style="margin-top: 10px">
+                            <form>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control" id="id" name="id" placeholder="Book Id" readonly
+                                               type="text">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" id="name" name="name" placeholder="Book Name"
+                                               type="text">
+                                    </div>
 
-								</div>
-								<div class="row" style="margin-top: 10px">
-									<div class="col">
-										<input type="text" class="form-control" placeholder="Category" name="category" id="category">
-									</div>
-									<div class="col">
-										<input type="text" class="form-control" placeholder="Price" name="price" id="price">
-									</div>
-								</div>
+                                </div>
                                 <div class="row" style="margin-top: 10px">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Author" name="author" id="author">
+                                        <input class="form-control" id="category" name="category" placeholder="Category"
+                                               type="text">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Qty" name="qty" id="qty">
+                                        <input class="form-control" id="price" name="price" placeholder="Price"
+                                               type="text">
                                     </div>
                                 </div>
-							</form>
-							<div style="margin-top: 10px">
-								<button type="button" class="btn btn-primary" id="addBook">Add Book</button>
-								<button type="button" class="btn btn-danger" id="deleteBook">Delete Book</button>
-								<button type="button" class="btn btn-warning" id="updateBook">Update Book</button>
-                                <button type="button" class="btn btn-success" id="getBook">Get All Book</button>
-							</div>
-						</div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col">
+                                        <input class="form-control" id="author" name="author" placeholder="Author"
+                                               type="text">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" id="qty" name="qty" placeholder="Qty" type="text">
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="margin-top: 10px">
+                                <button class="btn btn-primary" id="addBook" type="button">Add Book</button>
+                                <button class="btn btn-danger" id="deleteBook" type="button">Delete Book</button>
+                                <button class="btn btn-warning" id="updateBook" type="button">Update Book</button>
+                                <button class="btn btn-success" id="getBook" type="button">Get All Book</button>
+                            </div>
+                        </div>
 
                         <table class="table  table-hover" style="margin-top: 10px">
                             <thead class="bg-info text-white">
@@ -141,6 +147,72 @@
             </div>
         </footer>
     </div>
+    <div id="content2">
+        <div class="top-navbar">
+            <div class="xd-topbar">
+                <div class="row">
+                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                        <div class="xp-searchbar">
+                            <form>
+                                <div class="input-group">
+                                    <input class="form-control" id="searchId" placeholder="Enter Book Id (eg:B00-001)"
+                                           type="text">
+                                    <button class="btn btn-primary" id="searBook" type="button">Search Book</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------top-navbar-end----------->
+
+
+        <!------main-content-start----------->
+
+        <div class="main-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-wrapper">
+
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                                    <h2 class="ml-lg-2">Search Books</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table  table-hover" style="margin-top: 10px">
+                            <thead class="bg-info text-white">
+                            <tr>
+                                <th style="width: 300px">Book Id</th>
+                                <th>Book Name</th>
+                                <th>Book Category</th>
+                                <th>Author</th>
+                                <th>Book Price</th>
+                                <th>Qty</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="tblBook2">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="footer-in">
+                    <p class="mb-0">&copy 2023 Book Catalog. Design By : Asiri Madhusanka.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>
 
 <script src="../assets/js/bootstrap.min.js"></script>
@@ -150,6 +222,16 @@
 
     loadAll();
     generateBookId();
+
+    $("#dashboard").click(function () {
+        $("#content").css('display', 'block');
+        $("#content2").css('display', 'none');
+    });
+
+    $("#search").click(function () {
+        $("#content").css('display', 'none');
+        $("#content2").css('display', 'block');
+    });
 
     function generateBookId() {
         $("#id").empty();
@@ -178,11 +260,11 @@
         });
     }
 
-    $("#getBook").click(function (){
+    $("#getBook").click(function () {
         loadAll();
     });
 
-    $("#addBook").click(function (){
+    $("#addBook").click(function () {
         let id = $("#id").val();
         let name = $("#name").val();
         let category = $("#category").val();
@@ -190,34 +272,34 @@
         let author = $("#author").val();
         let qty = $("#qty").val();
 
-        let data ={
-            id:id,
-            name:name,
-            category:category,
-            price:price,
-            author:author,
-            qty:qty
+        let data = {
+            id: id,
+            name: name,
+            category: category,
+            price: price,
+            author: author,
+            qty: qty
         }
 
         $.ajax({
-            url: baseUrl+"book",
+            url: baseUrl + "book",
             method: "post",
             contentType: "application/json",
             data: JSON.stringify(data),
             dataType: "json",
-            success:function (res){
+            success: function (res) {
                 alert(res.message);
                 loadAll();
                 clear();
             },
-            error: function (error){
+            error: function (error) {
                 alert(JSON.parse(error.responseText).message);
                 clear();
             }
         })
     });
 
-    $("#updateBook").click(function (){
+    $("#updateBook").click(function () {
         let id = $("#id").val();
         let name = $("#name").val();
         let category = $("#category").val();
@@ -225,34 +307,34 @@
         let author = $("#author").val();
         let qty = $("#qty").val();
 
-        let data ={
-            id:id,
-            name:name,
-            category:category,
-            price:price,
-            author:author,
-            qty:qty
+        let data = {
+            id: id,
+            name: name,
+            category: category,
+            price: price,
+            author: author,
+            qty: qty
         }
 
         $.ajax({
-            url: baseUrl+"book",
+            url: baseUrl + "book",
             method: "put",
             contentType: "application/json",
             data: JSON.stringify(data),
             dataType: "json",
-            success:function (res){
+            success: function (res) {
                 alert(res.message);
                 loadAll();
                 clear();
             },
-            error: function (error){
+            error: function (error) {
                 alert(JSON.parse(error.responseText).message);
                 clear();
             }
         })
     });
 
-    $("#deleteBook").click(function (){
+    $("#deleteBook").click(function () {
         let id = $("#id").val();
         $.ajax({
             url: baseUrl + "book?id=" + id,
@@ -269,13 +351,38 @@
         });
     });
 
-    function clear(){
+    $("#searBook").click(function () {
+        let bookId = $("#searchId").val();
+        $("#tblBook2").empty();
+        $.ajax({
+            url: baseUrl + "book?id=" + bookId,
+            dataType: "json",
+            success: function (resp) {
+                for (let book of resp.data) {
+                    var row = '<tr style="cursor: pointer"><td>' + book.id + '</td><td>' + book.name + '</td><td>' + book.category + '</td><td>' + book.author + '</td><td>' + book.price + '</td><td style="font-size: 16px">' + book.qty + '</td></tr>';
+                    $("#tblBook2").append(row);
+
+                }
+            },
+            error: function () {
+                alert("Please Enter Correct Book ID")
+                clear2();
+            }
+        });
+    });
+
+    function clear() {
         $("#name").val("");
         $("#category").val("");
         $("#price").val("");
         $("#author").val("");
         $("#qty").val("");
     }
+
+    function clear2() {
+        $("#searchId").val("");
+    }
+
     function bindRowClickEvents() {
         $("#tblBook>tr").click(function () {
             let id = $(this).children(":eq(0)").text();
