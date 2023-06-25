@@ -79,47 +79,51 @@
 							<form>
 								<div class="row">
 									<div class="col">
-										<input type="text" class="form-control" placeholder="Book Id" name="id">
+										<input type="text" class="form-control" placeholder="Book Id" name="id" id="id" readonly>
 									</div>
 									<div class="col">
-										<input type="text" class="form-control" placeholder="Book Name" name="name">
+										<input type="text" class="form-control" placeholder="Book Name" name="name" id="name">
 									</div>
 
 								</div>
 								<div class="row" style="margin-top: 10px">
 									<div class="col">
-										<input type="text" class="form-control" placeholder="Author" name="author">
+										<input type="text" class="form-control" placeholder="Category" name="category" id="category">
 									</div>
 									<div class="col">
-										<input type="text" class="form-control" placeholder="Qty" name="qty">
+										<input type="text" class="form-control" placeholder="Price" name="price" id="price">
 									</div>
 								</div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Author" name="author" id="author">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="Qty" name="qty" id="qty">
+                                    </div>
+                                </div>
 							</form>
 							<div style="margin-top: 10px">
-								<button type="button" class="btn btn-primary">Add Book</button>
+								<button type="button" class="btn btn-primary" id="addBook">Add Book</button>
 								<button type="button" class="btn btn-danger">Delete Book</button>
 								<button type="button" class="btn btn-warning">Update Book</button>
+                                <button type="button" class="btn btn-success">Get All Book</button>
 							</div>
 						</div>
 
-
-                        <table class="table table-striped table-hover">
-                            <thead>
+                        <table class="table  table-hover" style="margin-top: 10px">
+                            <thead class="bg-info text-white">
                             <tr>
-                                <th>
-									<span class="custom-checkbox">
-							        <input id="selectAll" type="checkbox">
-							 		<label for="selectAll"></label>
-								</th>
-                                <th>Book Id</th>
+                                <th style="width: 300px">Book Id</th>
                                 <th>Book Name</th>
+                                <th>Book Category</th>
                                 <th>Author</th>
+                                <th>Book Price</th>
                                 <th>Qty</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="tblBook">
 
                             </tbody>
 
@@ -141,7 +145,101 @@
 
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script>
+    let baseUrl = "http://localhost:8081/book/api/v1/";
 
+    loadAll();
+    generateBookId();
+
+    function generateBookId() {
+        $("#id").empty();
+        $.ajax({
+            url: baseUrl + "book/generateBookId",
+            dataType: "json",
+            success: function (resp) {
+                $("#id").val(resp.data);
+            }
+        });
+    }
+
+    function loadAll() {
+        $("#tblBook").empty();
+        $.ajax({
+            url: baseUrl + "book",
+            dataType: "json",
+            success: function (resp) {
+                for (let book of resp.data) {
+                    var row = '<tr style="cursor: pointer"><td>' + book.id + '</td><td>' + book.name + '</td><td>' + book.category + '</td><td>' + book.author + '</td><td>' + book.price + '</td><td style="font-size: 16px">' + book.qty + '</td></tr>';
+                    $("#tblBook").append(row);
+
+                }
+                bindRowClickEvents();
+            }
+        });
+    }
+
+    $("#addBook").click(function (){
+        let id = $("#id").val();
+        let name = $("#name").val();
+        let category = $("#category").val();
+        let price = $("#price").val();
+        let author = $("#author").val();
+        let qty = $("#qty").val();
+
+        let data ={
+            id:id,
+            name:name,
+            category:category,
+            price:price,
+            author:author,
+            qty:qty
+        }
+
+        $.ajax({
+            url: baseUrl+"book",
+            method: "post",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "json",
+            success:function (res){
+                alert(res.message);
+                loadAll();
+                clear();
+            },
+            error: function (error){
+                alert(JSON.parse(error.responseText).message);
+                clear();
+            }
+        })
+    });
+
+    function clear(){
+        $("#name").val("");
+        $("#category").val("");
+        $("#price").val("");
+        $("#author").val("");
+        $("#qty").val("");
+    }
+
+    function bindRowClickEvents() {
+        $("#tblBook>tr").click(function () {
+            let id = $(this).children(":eq(0)").text();
+            let name = $(this).children(":eq(1)").text();
+            let category = $(this).children(":eq(2)").text();
+            let author = $(this).children(":eq(3)").text();
+            let price = $(this).children(":eq(4)").text();
+            let qty = $(this).children(":eq(5)").text();
+
+            $('#id').val(id);
+            $('#name').val(name);
+            $('#category').val(category);
+            $('#author').val(author);
+            $('#price').val(price);
+            $('#qty').val(qty);
+        });
+    }
+
+</script>
 
 </body>
 </html>
